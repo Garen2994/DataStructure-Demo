@@ -39,3 +39,5 @@ bin/
 gen/
 local.properties
 /.gitignore
+.idea
+/src/garen/demo/Linkedlist/LinkedListDemo.java
