@@ -8,7 +8,7 @@ public class Node<T>{
      * @description 构造一个新的结点
      * @param data
      */
-    public Node(T data) {
+    public Node(T data){
         this.data = data;
     }
 

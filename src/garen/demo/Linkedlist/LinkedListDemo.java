@@ -2,7 +2,6 @@ package garen.demo.Linkedlist;
 
 public class LinkedListDemo{
     public static void main(String[] args) throws Exception{
-        Node head = new Node(null);
         LinkedList list = new LinkedList();
         list.add(2);
         list.add(4);
@@ -25,10 +24,17 @@ public class LinkedListDemo{
         list2.add(7);
         list2.add(9);
         list2.add(4);
-        list2.remove();
+        list2.add(2);
         list2.print();
         System.out.println(list.isIntersect(list2));
-        System.out.println(list.getIntersectionPoint(list2));
+//        System.out.println(list.getIntersectionPoint(list2));
 
+        LinkedList list3 = new LinkedList();
+        list3.createLoopList(list3.getHead());
+//        list3.print();
+        System.out.print("是否有环:");
+        System.out.println(list3.hasLoop());
+        System.out.println(list3.loopLength(list3.getHead()));
     }
+
 }
