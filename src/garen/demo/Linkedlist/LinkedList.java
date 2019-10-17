@@ -28,22 +28,28 @@ public class LinkedList<E> {
     public LinkedList() {
         head = new Node<E>(null); //调用链表构造方法自动生成头结点
     }
-    public void createLoopList(Node<E> head){
+
+    /**
+     * @param head
+     * @description 建立一个带环单链表
+     */
+    public void createLoopList(Node<E> head) {
 
         int i;
         Node<E> current = head;
         Node<E> target = null;
         for (i = 0; i < 10; i++) {
-            Node<E> temp= new Node(i);
+            Node<E> temp = new Node(i);
             temp.next = null;
             current.next = temp;
             this.size++;
-            if (i == 5)
-                target = temp;//指定这个节点为环的第一个节点
+            if (i == 6)
+                target = temp;//指定这个结点为环的第一个结点
             current = temp;
         }
-        current.next = target;  //链表末端指向中间的一个节点，这样就创建了一个带环单链表
+        current.next = target;  //链表末端指向中间的一个结点，这样就创建了一个带环单链表
     }
+
     public Node<E> getHead() {
         return head;
     }
@@ -131,9 +137,9 @@ public class LinkedList<E> {
     }
 
     /**
+     * @description 删除链表末尾结点
      * @return
      * @throws Exception
-     * @description 删除链表末尾结点
      */
     public E remove() throws Exception {
         return remove(size - 1);
@@ -160,9 +166,9 @@ public class LinkedList<E> {
     }
 
     /**
+     * @description 找出单链表中倒数第K个元素(前提 : 不知道size ; 双指针法, 相差K - 1步) --------------------时间复杂度：O(n)
      * @param k
      * @return
-     * @description 找出单链表中倒数第K个元素(前提 : 不知道size ; 双指针法, 相差K - 1步) --------------------时间复杂度：O(n)
      */
     public Node<E> getKthFromEnd(int k) {
         System.out.print("倒数第" + k + "个结点为: ");
@@ -202,8 +208,8 @@ public class LinkedList<E> {
     }
 
     /**
-     * @param head
      * @description 递归法逆输出链表(不改变原链表)
+     * @param head
      */
     public void reversePrint(Node<E> head) {
         if (head.next != null) {
@@ -213,8 +219,8 @@ public class LinkedList<E> {
     }
 
     /**
-     * @return
      * @description 链表判空
+     * @return
      */
     public boolean isEmpty() {
         return size == 0;
@@ -354,45 +360,43 @@ public class LinkedList<E> {
     }
 
     /**
-     * @description 找到环的入口结点：相遇点到连接点的距离=头指针到连接点的距离
      * @param head
      * @return
-     *
+     * @description 找到环的入口结点：相遇点到连接点的距离=头指针到连接点的距离
      */
     public Node<E> getEntranceNode(Node<E> head) {
-        Node<E> pre = head.next;
-        Node<E> post = head.next;
-        if (pre == null || pre.next == null)
+        Node<E> pre = head; //设置两指针同时指向头结点
+        Node<E> post = head;
+        if (pre.next == null || post.next == null)
             return null;
-        while (pre != null && pre.next != null && pre.next.next != null) {
-            if (post == pre) {
-                System.out.println("有环");
-                break;
-            }//相等，则单链表有环
+        while (pre.next != null && post.next != null) {
             post = post.next;
             pre = pre.next.next;
+            if (post == pre) {    //相等，则单链表有环
+                break;
+            }
         }
         post = head; //此时,两个指针都在相遇节点处,让一个指针指向头结点处,另一个指向相遇结点
-        while(post != pre){
+        while (post != pre) {
             post = post.next; //两个指针同时前进，最后一定相遇在环入口结点
             pre = pre.next;
         }
-        return pre; //环入口结点
+        return post; //环入口结点
     }
 
     /**
-     * @description 求环的长度：让指针指向入口节点，遍历直到回到入口节点，走过的长度即环的长度
      * @param head
      * @return
+     * @description 求环的长度：让指针指向入口节点，遍历直到回到入口节点，走过的长度即环的长度
      */
-    public int loopLength(Node<E> head){
+    public int loopLength(Node<E> head) {
         if (!this.hasLoop()) {
             return 0;
         }
         int length = 1;
         Node<E> enter = this.getEntranceNode(this.getHead());
         Node<E> cur = enter.next;
-        while(cur != null) { //从环入口开始再回到环。
+        while (cur != null) { //从环入口开始再回到环。
             length++;
             cur = cur.next;
             if (cur == enter) {
