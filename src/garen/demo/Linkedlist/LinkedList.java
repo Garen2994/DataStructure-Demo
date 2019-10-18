@@ -21,7 +21,7 @@ package garen.demo.Linkedlist;
  * *  			    链表是否相交
  * *  			    链表的交点
  */
-public class LinkedList<E> {
+class LinkedList<E> {
     private Node<E> head;
     private int size;
 
