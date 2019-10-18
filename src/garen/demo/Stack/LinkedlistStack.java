@@ -10,7 +10,6 @@ package garen.demo.Stack;
 public class LinkedlistStack<E> {
     private Node<E> top; //栈顶元素
     private int size; //链式栈大小
-    private LinkedlistStack<E> minStack;   //辅助栈
     private int min = Integer.MAX_VALUE;
 
     public LinkedlistStack() {
