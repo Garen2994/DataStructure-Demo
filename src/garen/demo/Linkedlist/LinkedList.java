@@ -239,8 +239,7 @@ class LinkedList<E> {
     }
 
     /**
-     * @description 寻找单链表中的中间节点(双指针法)
-     * @author rico
+     * @description 寻找单链表中的中间节点(双指针法
      */
     public void printMiddleNodes() {
         Node<E> index1 = head.next; // 慢指针
@@ -262,7 +261,6 @@ class LinkedList<E> {
     /**
      * @return
      * @description 判断单链表是否有环(双指针法)--------------时间复杂度O(n);空间复杂度O(1)[设置标志位空间复杂度大]
-     * @author rico
      */
     public boolean hasLoop() {
         Node<E> pre = head.next;
