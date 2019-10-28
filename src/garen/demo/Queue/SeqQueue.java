@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 /**
- * @Title : 队列的三种实现方法之一：基于数组的实现
+ * @Title : 队列的三种实现方法之一 --- 基于数组的实现
  * @Description ：顺序队列
  * @Author : Garen
  * @Date : 2019/10/22 23:19
