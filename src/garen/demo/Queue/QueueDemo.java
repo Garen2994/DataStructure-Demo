@@ -34,5 +34,21 @@ public class QueueDemo {
         System.out.println(queue1.peek());
 
         System.out.println(queue1.isEmpty());
+
+        System.out.println("============两个栈实现队列==============");
+        StackQueue<Integer> queue3 = new StackQueue<>();
+        queue3.add(1);
+        queue3.add(2);
+        queue3.add(3);
+        queue3.add(4);
+        queue3.add(5);
+        System.out.println(queue3.toString());
+        System.out.println("队头元素:" + queue3.peek().toString());
+        queue3.remove();
+        System.out.println(queue3.toString());
+        System.out.println("队头元素:" + queue3.peek().toString());
+        queue3.remove();
+        System.out.println(queue3.toString());
+        System.out.println("队头元素:" + queue3.peek().toString());
     }
 }
