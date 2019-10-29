@@ -12,6 +12,14 @@ public class Node<T>{
         this.data = data;
     }
 
+    public T getData() {
+        return data;
+    }
+
+    public Node<T> getNext() {
+        return next;
+    }
+
     @Override
     public String toString() {
         return data.toString();
