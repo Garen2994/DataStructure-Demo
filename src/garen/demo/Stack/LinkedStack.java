@@ -24,7 +24,7 @@ public class LinkedStack<E> {
      * @return
      */
     public boolean isEmpty() {
-        System.out.print("是否是空栈：");
+//        System.out.print("是否是空栈：");
         return stack.isEmpty();
     }
 
@@ -59,6 +59,7 @@ public class LinkedStack<E> {
         System.out.print("栈的大小：");
         return stack.size();
     }
+
     @Override
     public String toString() {
         return stack.toString();

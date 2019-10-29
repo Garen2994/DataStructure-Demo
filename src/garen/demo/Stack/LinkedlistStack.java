@@ -38,7 +38,7 @@ public class LinkedlistStack<E> {
      * @description 弹栈,如果最小值被弹出，则需要遍历栈重新找最小值 -------此时pop()时间复杂度为O(n),空间复杂度为O(1)
      * @return
      */
-    public void pop() throws Exception {
+    public E pop() {
         if ((int) top.data == min) {
             min = Integer.MAX_VALUE;
             Node<E> index = top.next;
@@ -52,12 +52,13 @@ public class LinkedlistStack<E> {
 
         }
         if (this.isEmpty())
-            throw new Exception("此栈空！");
+            return null;
+        E e = top.data;
         Node<E> node = top;
         top = top.next;
         node.next = null; //释放结点
         size--;
-
+        return e;
     }
     /**
      * @return
@@ -90,5 +91,18 @@ public class LinkedlistStack<E> {
         }
         System.out.print("^"); //^是栈底
         System.out.println();
+    }
+    public int size(){
+        return size;
+    }
+    public String toString() {
+        // TODO Auto-generated method stub
+        Node<E> index = top;
+        StringBuilder sb = new StringBuilder();
+        while (index != null) {
+            sb.append(index.data).append(" ");
+            index = index.next;
+        }
+        return sb.toString();
     }
 }
