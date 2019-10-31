@@ -2,6 +2,7 @@ package garen.demo.Queue;
 
 /**
  * @Title : 顺序存储结构实现循环队列 包含两个指针front和rear
+ * @Description : 注意队列满条件和求队列长度
  * @Author : Garen
  * @Date : 2019/10/29 22:47
  */
