@@ -11,7 +11,6 @@ public class DoubleStack<E> {
     private int top1;
     private int top2;
     private int stackSize;
-
     /**
      * @param stackSize
      */
