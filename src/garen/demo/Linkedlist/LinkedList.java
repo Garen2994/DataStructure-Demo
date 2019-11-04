@@ -189,7 +189,6 @@ class LinkedList<E> {
         }
         return null;
     }
-
     /**
      * @description 反转链表（前指针，后指针，每个结点的next都要更新）
      */
