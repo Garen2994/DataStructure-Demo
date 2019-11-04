@@ -1,12 +1,5 @@
 package garen.demo.Queue;
 
-/**
- * @Title : 栈相关的算法题：最小栈
- * @Descirption : 带有取最小值getMin方法的栈，getMin方法将返回当前栈中的最小值(这里假设栈中元素为int型)
- *  -----这个方法时间复杂度O(n),空间复杂度O(1)
- * @Author : Garen
- * @Date : 2019/10/17 20:48
- */
 public class LinkedlistStack<E> {
     private Node<E> top; //栈顶元素
     private int size; //链式栈大小
@@ -30,7 +23,7 @@ public class LinkedlistStack<E> {
     }
 
     /**
-     * @description 弹栈,如果最小值被弹出，则需要遍历栈重新找最小值 -------此时pop()时间复杂度为O(n),空间复杂度为O(1)
+     * @description 弹栈
      * @return
      */
     public Node<E> pop() {
