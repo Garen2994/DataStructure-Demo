@@ -2,7 +2,7 @@ package garen.demo.Stack;
 
 import java.util.Comparator;
 
-public class StackDemo {
+public class  StackDemo {
     public static void main(String[] args) throws Exception{
 //        SequenceStack<String> stack = new SequenceStack<String>();
 //        stack.push("Garen");
