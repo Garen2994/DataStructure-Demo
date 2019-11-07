@@ -1,7 +1,7 @@
 package garen.demo.Queue.SlideWindow;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Deque;
 
 /**
@@ -13,13 +13,17 @@ import java.util.Deque;
  * @Date : 2019/10/31 14:00
  */
 public class SlideWindowQueue {
-    public static ArrayList<Integer> maxInWindows(int[] num, int size) {
-        ArrayList<Integer> result = new ArrayList<>();
-        if (num == null || size == 0 || num.length < size)
-            throw new RuntimeException("错误的输入");
+    //    public static ArrayList<Integer> maxInWindows(int[] num, int size) {
+    public static int[] maxInWindows(int[] num, int size) {
+//        ArrayList<Integer> result = new ArrayList<>();
 
+        if (num == null || size == 0 || num.length < size)
+//            throw new RuntimeException("错误的输入");
+            return new int[0];
+        int[] result = new int[num.length - size + 1];
         Deque<Integer> deque = new ArrayDeque<>(); //双端递减队列 滑动窗口--记录存储元素在数组中的位置
         int front;
+        int j = 0;
         for (int i = 0; i < num.length; i++) {
             front = i - size + 1;   //front--窗口的前端 i--窗口的后端
             if (deque.isEmpty())
@@ -35,16 +39,23 @@ public class SlideWindowQueue {
             deque.add(i); //入窗口队列
 //            System.out.println(deque.toString());
             //滑动窗口经过size个元素,获取当前最大值,也就是队首元素
-            if (front >= 0)  //形成第一个滑动窗口时开始获取最大值，即队首元素
-                result.add(num[deque.peekFirst()]);
+            if (front >= 0) {  //形成第一个滑动窗口时开始获取最大值，即队首元素
+//                result.add(num[deque.peekFirst()]);
+                result[j] = num[deque.peekFirst()];
+                j++;
+            }
+
         }
-        return result;
-
+            return result;
     }
 
-    public static void main(String[] args) {
-        int[] num = {2, 3, 4, 2, 6, 2, 5, 1};
-        System.out.println(maxInWindows(num, 3).toString());
-    }
+        public static void main (String[]args){
+//            int[] num = {2, 3, 4, 2, 6, 2, 5, 1};
+            int[] num = {};
 
-}
+//            System.out.println(maxInWindows(num, 3).toString());
+            System.out.println(Arrays.toString(maxInWindows(num,3)));
+        }
+
+
+    }
