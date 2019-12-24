@@ -7,6 +7,7 @@ import java.util.Scanner;
  * @Author : Garen
  * @Date : 2019/12/23 16:18
  */
+@SuppressWarnings("unchecked")
 public class createBinaryTree2<E> {
     public static Node createTree(Node node) {
         Scanner in = new Scanner(System.in);
@@ -14,9 +15,9 @@ public class createBinaryTree2<E> {
         String value = in.next();
         if (!value.equals("#")) {
             node = new Node();
-            node.data = value;
-            node.lchild = createTree(node.lchild);
-            node.rchild = createTree(node.rchild);
+            node.setData(value);
+            node.setLchild(createTree(node.getLchild()));
+            node.setRchild(createTree(node.getRchild()));
         }else
             node = null;
 
@@ -25,21 +26,10 @@ public class createBinaryTree2<E> {
 
     public static void main(String[] args) {
         BinaryTree tree = new BinaryTree();
-        tree.root = createTree(tree.root);
-        System.out.println(tree.root);
-        System.out.println(tree.root.data);
-        Node root = tree.root;
-
-        System.out.println("=======Pre-order=======");
-        root.frontShow();
-        System.out.println("");
-        System.out.println("======Medium-order=======");
-        root.midShow();
-        System.out.println("");
-        System.out.println("=======Post-order=======");
-        root.afterShow();
-        System.out.println("");
-
+        tree.setRoot(createTree(tree.getRoot()));
+        System.out.println(tree.getRoot());
+        System.out.println(tree.getRoot().getData());
+        Node root = tree.getRoot();
 
     }
 }

@@ -6,78 +6,62 @@ package garen.demo.Tree;
  * @Author : Garen
  * @Date : 2019/11/6 22:50
  */
-public class Node<T> {
+public class Node<E> {
 
-    public T data;
-    public Node<T> lchild;
-    public Node<T> rchild;
+    private E data;
+    private Node<E> lchild;
+    private Node<E> rchild;
+    private boolean isFirst = false;
 //    boolean isFirst;
 
+    /**
+     * @description 默认构造方法
+     */
     public Node() {
     }
 
     /**
-     * @description 构造新结点
      * @param data
+     * @description 构造新结点
      */
-
-    public Node(T data) {
+    public Node(E data) {
         this.data = data;
     }
 
-    public Node(T data, Node<T> lchild, Node<T> rchild) {
+    public E getData() {
+        return data;
+    }
+
+    public void setData(E data) {
         this.data = data;
+    }
+
+    public Node<E> getLchild() {
+        return lchild;
+    }
+
+    public Node<E> getRchild() {
+        return rchild;
+    }
+
+    public void setLchild(Node<E> lchild) {
         this.lchild = lchild;
+    }
+
+    public void setRchild(Node<E> rchild) {
         this.rchild = rchild;
     }
 
-    public void setLchild(Node<T> lchild) {
-        this.lchild = lchild;
+    public boolean isFirst() {
+        return isFirst;
     }
-    public void setRchild(Node<T> rchild) {
-        this.rchild = rchild;
+
+    public void setFirst(boolean first) {
+        isFirst = first;
     }
-    //前序遍历（递归）
-    public void frontShow() {
-        //遍历当前内容
-        System.out.print("\t"+data);
-        //左节点
-        if(lchild!=null) {
-            lchild.frontShow();
-        }
-        //右节点
-        if(rchild!=null) {
-            rchild.frontShow();
-        }
-    }
-    //中序遍历
-    public void midShow()
-    {
-        //左节点
-        if(lchild!=null) {
-            lchild.midShow();
-        }
-        //遍历当前内容
-        System.out.print("\t"+data);
-        //右节点
-        if(rchild!=null) {
-            rchild.midShow();
-        }
-    }
-    public void afterShow() {
-        //左节点
-        if(lchild!=null) {
-            lchild.afterShow();
-        }
-        //右节点
-        if(rchild!=null) {
-            rchild.afterShow();
-        }
-        //遍历当前内容
-        System.out.print("\t"+data);
-    }
+
     @Override
     public String toString() {
-        return data == null ?null : data.toString();
+        return data == null ? null : data.toString();
     }
 }
