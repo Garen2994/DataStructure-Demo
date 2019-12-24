@@ -8,15 +8,19 @@ package garen.demo.Tree;
  */
 public class Node<T> {
 
-    T data;
-    Node<T> lchild;
-    Node<T> rchild;
+    public T data;
+    public Node<T> lchild;
+    public Node<T> rchild;
 //    boolean isFirst;
+
+    public Node() {
+    }
 
     /**
      * @description 构造新结点
      * @param data
      */
+
     public Node(T data) {
         this.data = data;
     }
@@ -63,15 +67,14 @@ public class Node<T> {
     public void afterShow() {
         //左节点
         if(lchild!=null) {
-            lchild.midShow();
+            lchild.afterShow();
         }
         //右节点
         if(rchild!=null) {
-            rchild.midShow();
+            rchild.afterShow();
         }
         //遍历当前内容
         System.out.print("\t"+data);
-
     }
     @Override
     public String toString() {

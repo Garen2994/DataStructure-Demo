@@ -9,7 +9,7 @@ import java.util.LinkedList;
  * @Date : 2019/11/6 22:56
  */
 public class BinaryTree<E> {
-    private Node<E> root;
+    public Node<E> root;
 
     public BinaryTree(Node<E> root) {
         this.root = root;

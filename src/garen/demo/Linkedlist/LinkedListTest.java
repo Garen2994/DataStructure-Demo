@@ -1,7 +1,11 @@
 package garen.demo.Linkedlist;
 
-public class LinkedListDemo{
-    public static void main(String[] args) throws Exception{
+import org.junit.jupiter.api.Test;
+
+public class LinkedListTest {
+
+    @Test
+    public void Test() throws Exception{
         LinkedList list = new LinkedList();
         list.add(2);
         list.add(4);

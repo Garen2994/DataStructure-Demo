@@ -1,12 +1,13 @@
 package garen.demo.Tree;
-
+import org.junit.jupiter.api.Test;
 /**
  * @Title 实例化二叉树
  * @Author : Garen
  * @Date : 2019/11/7 21:04
  */
 public class TestCreateTree {
-    public static void main(String[] args) {
+    @Test
+    public void createTest(){
         BinaryTree binTree = new BinaryTree();
         Node root = new Node(1);
         binTree.setRoot(root);
@@ -22,11 +23,11 @@ public class TestCreateTree {
         rootR.setRchild(new Node(7));
 
 
-        System.out.print("前序遍历:");
+        System.out.print("Pre-order: ");
         root.frontShow();
-        System.out.print("\n中序遍历：");
+        System.out.print("\nMedium-order: ");
         root.midShow();
-        System.out.print("\n后序遍历：");
+        System.out.print("\nPost-order:　");
         root.afterShow();
     }
 }

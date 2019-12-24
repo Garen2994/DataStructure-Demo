@@ -2,8 +2,13 @@ package garen.demo.Tree;
 
 import java.util.LinkedList;
 import java.util.List;
-//把一个数组的值存入二叉树中，然后进行3种方式的遍历
-public class createBinaryTree {
+
+/**
+ * @Title : 以一个数组构建为一棵二叉树并遍历
+ * @Author : Garen
+ * @Date : 2019/12/23 17:31
+ */
+public class createBinaryTree1 {
     private int[] array = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
     private static List<Node> nodeList = null;
     //内部类结点
@@ -18,6 +23,10 @@ public class createBinaryTree {
             data = newData;
         }
     }
+
+    /**
+     * @description 构建二叉树(运用数学关系)
+     */
     public void createBinTree() {
         nodeList = new LinkedList<Node>();
         // 将一个数组的值依次转换为Node节点
@@ -86,7 +95,7 @@ public class createBinaryTree {
         System.out.print(node.data + " ");
     }
     public static void main(String[] args) {
-        createBinaryTree binTree = new createBinaryTree();
+        createBinaryTree1 binTree = new createBinaryTree1();
         binTree.createBinTree();
         // nodeList中第0个索引处的值即为根节点
         Node root = nodeList.get(0);
