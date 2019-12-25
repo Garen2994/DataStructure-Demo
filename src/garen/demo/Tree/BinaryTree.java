@@ -97,56 +97,85 @@ public class BinaryTree<E> {
         return root;
     }
 
-
     /**
-     * @param root
-     * @description 先序递归遍历
+     * @description order by level ---use a queue
      */
-    public void preOrderTraverse(Node<E> root) {
+    public String levelOrder(Node<E> root) {
+        StringBuilder string = new StringBuilder();
+        LinkedList<Node<E>> queue = new LinkedList<>();
         if (root == null)
-            return;
-        System.out.print(root.getData() + "\t");
-        preOrderTraverse(root.getLchild());
-        preOrderTraverse(root.getRchild());
+            return null;
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            Node node = queue.pop();
+            string.append(node.getData() + "\t");
+            if (node.getLchild() != null)
+                queue.add(node.getLchild());
+            if (node.getRchild() != null)
+                queue.add(node.getRchild());
+        }
+        return string.toString();
     }
 
     /**
      * @param root
-     * @description 前序遍历非递归 (迭代)---利用栈
+     * @description pre-order recursion traverse
      */
-    public void preOrder(Node<E> root) {
-        if (root == null)
-            return;
-        LinkedList<Node> stack = new LinkedList<>();   //栈用来存访问但未输出的结点
-        Node node = root;
-        while (node != null || !stack.isEmpty()) {
-            if (node != null) {
-                System.out.print(node.getData() + "\t");
-                stack.push(node);
-                node = node.getLchild();
-            } else {
-                node = stack.pop();
-                node = node.getRchild();
+    public String preOrderRecursion(Node<E> root) {
+        StringBuilder string = new StringBuilder();
+        if (root != null) {
+            string.append(root.getData() + "\t");
+            string.append(preOrderRecursion(root.getLchild()));
+            string.append(preOrderRecursion(root.getRchild()));
+        }
+        return string.toString();
+    }
+
+    /**
+     * @param root
+     * @description pre-order non-recursion traverse(iteration) --- use a stack
+     */
+    public String preOrder(Node<E> root) {
+        StringBuilder string = new StringBuilder();
+        if (root != null) {
+            LinkedList<Node> stack = new LinkedList<>();   //栈用来存访问但未输出的结点
+            Node node = root;
+            while (node != null || !stack.isEmpty()) {
+                if (node != null) {
+                    string.append(node.getData() + "\t");
+                    stack.push(node);
+                    node = node.getLchild();
+                } else {
+                    node = stack.pop();
+                    node = node.getRchild();
+                }
             }
         }
+        return string.toString();
     }
-
 
     /**
      * @param root
-     * @description 中序递归遍历
+     * @description in-order recursion traverse
      */
-    public void inOrderTraverse(Node<E> root) {
-        if (root == null)
-            return;
-        inOrderTraverse(root.getLchild());
-        System.out.print(root.getData() + "\t");
-        inOrderTraverse(root.getRchild());
+    public String inOrderRecursion(Node<E> root) {
+        StringBuilder string = new StringBuilder();
+        if (root != null) {
+            string.append(inOrderRecursion(root.getLchild()));
+            string.append(root.getData() + "\t");
+            string.append(inOrderRecursion(root.getRchild()));
+        }
+        return string.toString();
     }
 
-    public void inOrder(Node<E> root) {
+    /**
+     * @param root
+     * @description in-order non-recursion traverse
+     */
+    public String inOrder(Node<E> root) {
+        StringBuilder string = new StringBuilder();
         if (root == null)
-            return;
+            return null;
         LinkedList<Node> stack = new LinkedList<>();
         Node node = root;
         while (node != null || !stack.isEmpty()) {
@@ -155,48 +184,140 @@ public class BinaryTree<E> {
                 node = node.getLchild();
             } else {
                 node = stack.pop();
-                System.out.print(node.getData() + "\t");
+                string.append(node.getData() + "\t");
                 node = node.getRchild();
             }
         }
+        return string.toString();
     }
 
     /**
      * @param root
-     * @description 后序递归遍历
+     * @description post-order recursion traverse
      */
-    public void postOrderTraverse(Node<E> root) {
-
-        if (root == null)
-            return;
-        postOrderTraverse(root.getLchild());
-        postOrderTraverse(root.getRchild());
-        System.out.print(root.getData() + "\t");
+    public String postOrderRecursion(Node<E> root) {
+        StringBuilder string = new StringBuilder();
+        if (root != null) {
+            string.append(postOrderRecursion(root.getLchild()));
+            string.append(postOrderRecursion(root.getRchild()));
+            string.append(root.getData() + "\t");
+        }
+        return string.toString();
     }
 
-    public void postOrder(Node<E> root) {
+    /**
+     * @param root
+     * @description post-order non-recursion traverse
+     */
+    public String postOrder(Node<E> root) {
+        StringBuilder string = new StringBuilder();
         if (root == null)
-            return;
+            return null;
         LinkedList<Node<E>> stack = new LinkedList<>();
         Node node = root;
 
         while (node != null || !stack.isEmpty()) {
             if (node != null) {
-                node.setFirst(true);  //首次访问该节点，记为true
                 stack.push(node);
+                node.setFirst(true);  // 第一次被访问记作true
                 node = node.getLchild();
-            } else {
+            } else {   //node == null
                 node = stack.pop();
                 if (node.isFirst()) {
-                    node.setFirst(false);  //第二次访问该节点，改为false
-                    stack.push(node);    //只有在第三次才访问，因此，前结点再次压栈
+                    node.setFirst(false);   //第二次访问记作false
+                    stack.push(node);
                     node = node.getRchild();
-                }else{
-                    System.out.print(node.getData()+"\t");
+                } else {   //进行第三次访问,输出
+                    string.append(node.getData() + "\t");
                     node = null;
                 }
             }
         }
+        return string.toString();
+    }
+
+    /**
+     * @param pre
+     * @param in
+     * @return
+     * @description 根据前序和中序遍历结果确定二叉树
+     */
+    public Node<E> createTreeByPreAndIn(String pre, String in) {
+        if (!pre.isEmpty()) {
+            Node<E> root = new Node(pre.charAt(0));
+            int index = in.indexOf(pre.charAt(0));
+            root.setLchild(createTreeByPreAndIn(pre.substring(1, index + 1), in.substring(0, index)));
+            root.setRchild(createTreeByPreAndIn(pre.substring(index + 1, pre.length()), in.substring(index + 1,
+                    in.length())));
+            return root;
+        }
+        return null;
+    }
+
+    public Node<E> createTreeByPostAndIn(String post, String in) {
+        if (!post.isEmpty()) {
+            Node<E> root = new Node(post.charAt(post.length() - 1));
+            int index = in.indexOf(post.charAt(post.length() - 1));
+            root.setLchild(createTreeByPostAndIn(post.substring(0, index), in.substring(0, index)));
+            root.setRchild(createTreeByPostAndIn(post.substring(index, post.length() - 1), in.substring(index + 1,
+                    in.length())));
+            return root;
+        }
+        return null;
+    }
+
+    private int index = 0;
+
+    public Node<E> createTreeByPreStr(char[] preStr, Node temp) {
+
+        if (index < preStr.length) {
+            char c = preStr[index++];
+            if (c != '#') {
+                Node<E> node = new Node(c);
+                node.setLchild(createTreeByPreStr(preStr, node));
+                node.setRchild(createTreeByPreStr(preStr, node));
+                return node;
+            }
+            return null;
+        }
+        return null;
+    }
+
+    /**
+     * @param root
+     * @return
+     * @description 复制一棵二叉树
+     */
+    public Node<E> copyTree(Node<E> root) {
+        if (root == null) {
+            return null;
+        }
+        Node node = new Node<E>(null);
+        node.setData(root.getData());
+        node.setLchild(copyTree(root.getLchild()));
+        node.setRchild(copyTree(root.getRchild()));
+
+        return node;
+    }
+
+    /**
+     * @param root
+     * @return
+     * @description 以广义表表达式形式打印二叉树
+     */
+    public String printTreeInExpression(Node<E> root) {
+        StringBuilder string = new StringBuilder();
+        if (root != null) {
+            string.append(root.getData());
+            if (root.getLchild() != null || root.getRchild() != null) {
+                string.append('(');
+                string.append(printTreeInExpression(root.getLchild()));
+                string.append(',');
+                string.append(printTreeInExpression(root.getRchild()));
+                string.append(')');
+            }
+        }
+        return string.toString();
     }
 }
 
