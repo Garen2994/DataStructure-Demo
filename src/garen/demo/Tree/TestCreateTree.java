@@ -46,6 +46,9 @@ public class TestCreateTree {
         System.out.println(tree.postOrder(root));
         System.out.println("=======层序遍历=======");
         System.out.println(tree.levelOrder(root));
+
+        int height = tree.getHeight(root);
+        System.out.println(height);
     }
 
     @Test
@@ -85,18 +88,24 @@ public class TestCreateTree {
 
     @Test
     public void Test5() {
-        String pre = "ABCDEF";
-        String in = "CBAEFD";
-        BinaryTree tree = new BinaryTree();
-        Node root = tree.createTreeByPreAndIn(pre, in);
-        System.out.println(tree.printTreeInExpression(root));
+        String pre = "ABCDEFG";
+        String in = "CBAEFGD";
+        BinaryTree tree = new BinaryTree(pre,in,true);
+        System.out.println(tree.preOrder(tree.getRoot()));
+        System.out.println(tree.inOrder(tree.getRoot()));
+        System.out.println(tree.getHeight(tree.getRoot()));
+        System.out.println(tree.getCount(tree.getRoot()));
+
+
     }
 
     @Test
     public void Test6() {
-        char[] preStr = "ABC#D#E".toCharArray();
-        BinaryTree tree = new BinaryTree();
-        Node temp = new Node(null);
-        System.out.println(tree.preOrder(tree.createTreeByPreStr(preStr, temp)));
+        char[] preStr = "ABC#D#EGH".toCharArray();
+        BinaryTree tree = new BinaryTree(preStr);
+        System.out.println(tree.preOrder(tree.getRoot()));
+        System.out.println(tree.inOrder(tree.getRoot()));
+        System.out.println(tree.postOrder(tree.getRoot()));
+        System.out.println(tree.getHeight(tree.getRoot()));
     }
 }
