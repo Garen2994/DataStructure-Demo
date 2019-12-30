@@ -1,5 +1,7 @@
 package garen.demo.Tree;
 
+import java.util.Objects;
+
 /**
  * @Title : 二叉树的结点类
  * @Description : 结点包括数据域存储结点数据 指针域分别指向左孩子结点和右孩子结点
@@ -58,6 +60,16 @@ public class Node<E> {
 
     public void setFirst(boolean first) {
         isFirst = first;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Node) {
+            Node<E> temp = (Node<E>) obj;
+            if (this.data.equals(temp.data))
+                return true;
+        }
+        return false;
     }
 
     @Override

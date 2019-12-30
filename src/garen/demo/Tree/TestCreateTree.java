@@ -1,6 +1,10 @@
 package garen.demo.Tree;
 
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Title 实例化二叉树
@@ -96,7 +100,6 @@ public class TestCreateTree {
         System.out.println(tree.getHeight(tree.getRoot()));
         System.out.println(tree.getCount(tree.getRoot()));
 
-
     }
 
     @Test
@@ -108,4 +111,49 @@ public class TestCreateTree {
         System.out.println(tree.postOrder(tree.getRoot()));
         System.out.println(tree.getHeight(tree.getRoot()));
     }
+
+    @Test()
+    public void Test7(){
+        BinaryTree tree = new BinaryTree();
+        String exp = "A(B(C,D),E(,F))";
+        Node root = tree.createBinaryTree(exp);
+        String pre = "ABCDEFG";
+        String in = "CBAEFGD";
+        BinaryTree new_tree = new BinaryTree(pre,in,true);
+        Node copyRoot = tree.copyTree(tree.getRoot());
+
+        BinaryTree copyTree = new BinaryTree(copyRoot);
+        //判断两棵树是否相同
+        System.out.println(tree.isEqual(root, new_tree.getRoot()));
+        System.out.println(tree.equals(new_tree));
+        System.out.println(tree.equals(copyTree));
+
+        Map<Integer,Integer> map = new HashMap<>();
+        map.put(1,2);
+        System.out.println(map.containsKey(1));
+        System.out.println(map.get(1));
+    }
+    @Test
+    public void Test8(){
+        int[] nums = {2,7,11,6};
+        int target  = 9;
+        int[] sum = twoSum(nums, target);
+        for (int i : sum) {
+            System.out.print(i+",");
+        }
+    }
+    public int[] twoSum(int[] nums, int target) {
+        int volume = 2048;       //100000000000
+        int bitMode = volume - 1; //011111111111
+        int[] result = new int[volume];
+        for (int i = 0; i < nums.length; i++) {
+            int c = (target - nums[i]) & bitMode;
+            if (result[c] != 0) {
+                return new int[]{result[c] - 1, i};
+            }
+            result[nums[i] & bitMode] = i + 1;
+        }
+        return null;
+    }
+
 }

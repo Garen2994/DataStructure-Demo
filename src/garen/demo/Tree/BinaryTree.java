@@ -347,7 +347,6 @@ public class BinaryTree<E> {
         }
         return string.toString();
     }
-
     /**
      * @param root
      * @return
@@ -371,6 +370,35 @@ public class BinaryTree<E> {
         if (root == null)
             return 0;
         return getCount(root.getLchild()) + getCount(root.getRchild()) + 1;
+    }
+
+    /**
+     * @description Is a tree equal with another
+     * @param root1
+     * @param root2
+     * @return
+     */
+    public boolean isEqual(Node<E> root1,Node<E> root2){
+        if(root1 == null && root2 == null){
+            return true;
+        }else if(root1 == null || root2 == null){
+            return false;
+        }else{
+            return root1.equals(root2) && isEqual(root1.getLchild(),root2.getLchild()) && isEqual(root1.getRchild(),
+                    root2.getRchild());
+        }
+    }
+
+    /**
+     * @param obj  直接判断两棵树是否相等
+     * @return
+     */
+    public boolean equals(Object obj){
+        if(obj instanceof BinaryTree){    //is it a tree?
+            BinaryTree<E> tree = (BinaryTree<E>) obj;
+            return isEqual(this.root,tree.root);
+        }
+        return false;
     }
 }
 
