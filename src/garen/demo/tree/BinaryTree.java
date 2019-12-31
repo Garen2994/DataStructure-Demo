@@ -1,4 +1,4 @@
-package garen.demo.tree;
+package garen.demo.Tree;
 
 import java.util.LinkedList;
 
@@ -23,8 +23,8 @@ public class BinaryTree<E> {
     private Node<E> root;   //二叉树根结点
 
     /**
-     * @param
      * @description 无参构造函数
+     * @param
      */
 
     public BinaryTree() {
@@ -32,11 +32,33 @@ public class BinaryTree<E> {
     }
 
     /**
-     * @param root
      * @description 以根节点为参数的构造方法
+     * @param root
      */
     public BinaryTree(Node<E> root) {
         this.root = root;
+    }
+
+    /**
+     * @description 重载构造方法: 以前序遍历序列(带#号)构建二叉树
+     * @param preStr
+     */
+
+    public BinaryTree(char[] preStr) {
+        root = createTreeByPreStr(preStr, null);
+    }
+
+    /**
+     * @description 重载构造方法: 以遍历序列来构建二叉树(isPreIn为true用前序和中序遍历结果,false用后序和中序遍历结果)
+     * @param str1
+     * @param str2
+     * @param isPreIn
+     */
+    public BinaryTree(String str1, String str2, boolean isPreIn) {
+        if (isPreIn)
+            root = createTreeByPreAndIn(str1, str2);
+        else
+            root = createTreeByPostAndIn(str1, str2);
     }
 
     public void setRoot(Node<E> root) {
@@ -268,6 +290,12 @@ public class BinaryTree<E> {
 
     private int index = 0;
 
+    /**
+     * @param preStr
+     * @param temp
+     * @return
+     * @description create a Binary tree by the pre-order traversing result sequence
+     */
     public Node<E> createTreeByPreStr(char[] preStr, Node temp) {
 
         if (index < preStr.length) {
@@ -284,9 +312,9 @@ public class BinaryTree<E> {
     }
 
     /**
-     * @description 复制一棵二叉树
-     * @param root 根
+     * @param root
      * @return
+     * @description copy a binary tree
      */
     public Node<E> copyTree(Node<E> root) {
         if (root == null) {
@@ -301,9 +329,9 @@ public class BinaryTree<E> {
     }
 
     /**
-     * @param root 根
-     * @return 序列
-     * @description 以广义表表达式形式打印二叉树
+     * @param root
+     * @return
+     * @description print a binary tree in a list-expression
      */
     public String printTreeInExpression(Node<E> root) {
         StringBuilder string = new StringBuilder();
@@ -318,6 +346,59 @@ public class BinaryTree<E> {
             }
         }
         return string.toString();
+    }
+    /**
+     * @param root
+     * @return
+     * @description calculate the height of the binary tree by recursion algorithm
+     */
+    public int getHeight(Node<E> root) {
+        if (root == null) {
+            return 0;
+        }
+        int leftHeight = getHeight(root.getLchild());
+        int rightHeight = getHeight(root.getRchild());
+        return Math.max(leftHeight, rightHeight) + 1;
+    }
+
+    /**
+     * @param root
+     * @return
+     * @description calculate the amount of nodes of a binary tree.
+     */
+    public int getCount(Node<E> root) {
+        if (root == null)
+            return 0;
+        return getCount(root.getLchild()) + getCount(root.getRchild()) + 1;
+    }
+
+    /**
+     * @description Is a tree equal with another
+     * @param root1
+     * @param root2
+     * @return
+     */
+    public boolean isEqual(Node<E> root1,Node<E> root2){
+        if(root1 == null && root2 == null){
+            return true;
+        }else if(root1 == null || root2 == null){
+            return false;
+        }else{
+            return root1.equals(root2) && isEqual(root1.getLchild(),root2.getLchild()) && isEqual(root1.getRchild(),
+                    root2.getRchild());
+        }
+    }
+
+    /**
+     * @param obj  直接判断两棵树是否相等
+     * @return
+     */
+    public boolean equals(Object obj){
+        if(obj instanceof BinaryTree){    //is it a tree?
+            BinaryTree<E> tree = (BinaryTree<E>) obj;
+            return isEqual(this.root,tree.root);
+        }
+        return false;
     }
 }
 
