@@ -1,4 +1,6 @@
-package garen.demo.Tree;
+package garen.demo.tree;
+
+import garen.demo.tree.Node;
 
 import java.util.LinkedList;
 
