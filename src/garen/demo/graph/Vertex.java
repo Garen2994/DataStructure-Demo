@@ -7,14 +7,18 @@ package garen.demo.graph;
  */
 
 public class Vertex<E>{
-    //顶点值
-    public E value;
-    //顶点是否被访问
-    public boolean isVisited;
+    
+    public E value;    //顶点值
+    
+    public boolean isVisited;    //顶点是否被访问
 
     public Vertex() {
     }
-
+    /**
+     * @description 构造方法
+     * @param value 顶点的值
+     * @return
+     */
     public Vertex(E value) {
         this.value = value;
         this.isVisited = false;

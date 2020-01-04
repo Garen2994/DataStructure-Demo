@@ -145,12 +145,12 @@ public class Graph<E> {
         }
         return -1;
     }
-//    /**
-//     * @description 寻找单源最短路径--Dijkstra算法
-//     * @param s 起始点
-//     * @return void
-//     */
-//    public void dijkstra(int s){
-//
-//    }
+    /**
+     * @description 寻找单源最短路径--Dijkstra算法
+     * @param s 起始点
+     * @return void
+     */
+    public void dijkstra(int s){
+        //TODO
+    }
 }

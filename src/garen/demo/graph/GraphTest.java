@@ -21,7 +21,7 @@ public class GraphTest {
         g.addVertex('E');
         g.addVertex('F');
         g.addVertex('G');
-//        int matrix[][] = {
+//   对应的邻接矩阵int matrix[][] =
 //                /*A*//*B*//*C*//*D*//*E*//*F*//*G*/
 //         /*A*/ {   0,  12, INF, INF, INF,  16,  14},
 //         /*B*/ {  12,   0,  10, INF, INF,   7, INF},
