@@ -1,9 +1,7 @@
 package garen.demo.linkedlist;
-/*
- * @Title ://TODO
+/**
  * @Author : Garen
- * @Email : garen2994@hotmail.com
- * @Date :  2019/12/31 16:29
+ * @Date : 2019/10/15 17:15
  */
 
 /**
@@ -23,7 +21,6 @@ package garen.demo.linkedlist;
  * *  			    链表是否相交
  * *  			    链表的交点
  */
-
 class LinkedList<E> {
     private Node<E> head;
     private int size;
@@ -34,8 +31,7 @@ class LinkedList<E> {
 
     /**
      * @param head
-     * @return void
-     * @description //TODO
+     * @description 建立一个带环单链表
      */
     public void createLoopList(Node<E> head) {
 
@@ -78,7 +74,7 @@ class LinkedList<E> {
         }
 //        if(p == null || j > index)
 //            return;
-        Node<E> insert_node = new Node<>(data);
+        Node<E> insert_node = new Node<E>(data);
         insert_node.next = p.next;
         p.next = insert_node;
         size++;
@@ -141,9 +137,9 @@ class LinkedList<E> {
     }
 
     /**
+     * @description 删除链表末尾结点
      * @return
      * @throws Exception
-     * @description 删除链表末尾结点
      */
     public E remove() throws Exception {
         return remove(size - 1);
@@ -170,9 +166,9 @@ class LinkedList<E> {
     }
 
     /**
+     * @description 找出单链表中倒数第K个元素(前提 : 不知道size ; 双指针法, 相差K - 1步) --------------------时间复杂度：O(n)
      * @param k
      * @return
-     * @description 找出单链表中倒数第K个元素(前提 : 不知道size ; 双指针法, 相差K - 1步) --------------------时间复杂度：O(n)
      */
     public Node<E> getKthFromEnd(int k) {
         System.out.print("倒数第" + k + "个结点为: ");
@@ -193,7 +189,6 @@ class LinkedList<E> {
         }
         return null;
     }
-
     /**
      * @description 反转链表（前指针，后指针，每个结点的next都要更新）
      */
@@ -212,8 +207,8 @@ class LinkedList<E> {
     }
 
     /**
-     * @param head
      * @description 递归法逆输出链表(不改变原链表)
+     * @param head
      */
     public void reversePrint(Node<E> head) {
         if (head.next != null) {
@@ -223,8 +218,8 @@ class LinkedList<E> {
     }
 
     /**
-     * @return
      * @description 链表判空
+     * @return
      */
     public boolean isEmpty() {
         return size == 0;
