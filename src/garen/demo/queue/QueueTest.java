@@ -1,7 +1,11 @@
 package garen.demo.queue;
 
 import org.junit.jupiter.api.Test;
-
+/**
+ * @Title : 队列测试类
+ * @Author : Garen Hou
+ * @Email : garen2994@hotmail.com
+ */
 public class QueueTest {
 
     @Test
