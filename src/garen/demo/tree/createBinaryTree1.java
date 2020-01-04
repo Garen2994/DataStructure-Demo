@@ -9,13 +9,15 @@ import java.util.List;
  * @Date : 2019/12/23 17:31
  */
 public class createBinaryTree1 {
-    private int[] array = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    private int[] array = {1, 2, 3, 4, 5, 6, 7, 8, 9};
     private static List<Node> nodeList = null;
+    
     //内部类结点
     private static class Node {
         Node leftChild;
         Node rightChild;
         int data;
+        
         //构造方法初始化
         Node(int newData) {
             leftChild = null;
@@ -23,7 +25,7 @@ public class createBinaryTree1 {
             data = newData;
         }
     }
-
+    
     /**
      * @description 构建二叉树(运用数学关系)
      */
@@ -49,51 +51,48 @@ public class createBinaryTree1 {
             nodeList.get(lastParentIndex).rightChild = nodeList.get(lastParentIndex * 2 + 2);
         }
     }
+    
     /**
      * 先序遍历
      *
      * 这三种不同的遍历结构都是一样的，只是先后顺序不一样而已
-     *
-     * @param node
-     *            遍历的节点
+     * @param node 遍历的节点
      */
     public static void preOrderTraverse(Node node) {
-        if (node == null)
-            return;
+        if (node == null) return;
         System.out.print(node.data + " ");
         preOrderTraverse(node.leftChild);
         preOrderTraverse(node.rightChild);
     }
+    
     /**
      * 中序遍历
      *
      * 这三种不同的遍历结构都是一样的，只是先后顺序不一样而已
-     *
-     * @param node
-     *            遍历的节点
+     * @param node 遍历的节点
      */
     public static void inOrderTraverse(Node node) {
-        if (node == null)
-            return;
+        if (node == null) return;
         inOrderTraverse(node.leftChild);
         System.out.print(node.data + " ");
         inOrderTraverse(node.rightChild);
     }
+    
     /**
      * 后序遍历
      *
      * 这三种不同的遍历结构都是一样的，只是先后顺序不一样而已
-     *
-     * @param node
-     *            遍历的节点
+     * @param node 遍历的节点
      */
     public static void postOrderTraverse(Node node) {
-        if (node == null)
+        if (node == null) {
             return;
+        }
         postOrderTraverse(node.leftChild);
         postOrderTraverse(node.rightChild);
         System.out.print(node.data + " ");
     }
+    
     public static void main(String[] args) {
         createBinaryTree1 binTree = new createBinaryTree1();
         binTree.createBinTree();

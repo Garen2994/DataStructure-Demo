@@ -1,6 +1,5 @@
 package garen.demo.tree;
 
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -58,7 +57,7 @@ public class CreateTreeTest {
     public void Test2() {
         BinaryTree tree = new BinaryTree();
         String exp = "A(B(C,D),E(,F))";
-        Node root = tree.createBinaryTree(exp);//匹配所有空白字符
+        Node root = tree.createBinaryTree(exp);  //匹配所有空白字符
         String pre = tree.preOrder(root).replaceAll("\\s*", "");
         String in = tree.inOrder(root).replaceAll("\\s*", "");
         System.out.println(pre);
