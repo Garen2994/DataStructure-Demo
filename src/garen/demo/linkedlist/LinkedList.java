@@ -49,7 +49,11 @@ class LinkedList<E> {
         }
         current.next = target;  //链表末端指向中间的一个结点，这样就创建了一个带环单链表
     }
-
+    /**
+     * @description 获取头节点
+     * @param
+     * @return garen.demo.linkedlist.Node<E>
+     */
     public Node<E> getHead() {
         return head;
     }
