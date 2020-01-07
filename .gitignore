@@ -34,9 +34,11 @@ out
 .classpath
 .project
 .settings/
- 
+
 bin/
 gen/
 local.properties
 /.gitignore
 .idea
+
+!/version-jdk12.0.1-9cf
