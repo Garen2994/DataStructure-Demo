@@ -1,7 +1,6 @@
 package garen.demo.graph;
 
 import org.junit.jupiter.api.Test;
-
 /**
  * @Title : 图类测试类
  * @Author : Garen Hou
@@ -51,10 +50,13 @@ public class GraphTest {
         System.out.println(g.bfs());
         System.out.println();
         
-        g.dijkstra(3);
-        System.out.println("路径：");
-        for (int i = 0; i < g.vertexList.length; i++) {
-            System.out.print(g.path[i] + " ");
+        int s = 1;
+        int[] result = g.dijkstra(s);
+        System.out.println("顶点s到图中所有顶点之间的最短距离为：");
+        for (int i = 0; i < result.length; i++) {
+            System.out.println("D(" + g.vertexList[s].value + "," + g.vertexList[i].value + ")= " + result[i]);
         }
     }
+    
 }
+

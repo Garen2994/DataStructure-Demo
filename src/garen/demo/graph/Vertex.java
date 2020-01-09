@@ -11,7 +11,12 @@ public class Vertex<E>{
     public E value;    //顶点值
     
     public boolean isVisited;    //顶点是否被访问
-
+    
+    /**
+     * @description 默认空构造方法
+     * @param
+     * @return
+     */
     public Vertex() {
     }
     /**
