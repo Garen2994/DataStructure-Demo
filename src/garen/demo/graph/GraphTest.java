@@ -8,11 +8,11 @@ import org.junit.jupiter.api.Test;
  * @Date :  2020/1/4 19:06
  */
 public class GraphTest {
-    private Graph g = new Graph(7);
+    private GraphByAdjMatrix g = new GraphByAdjMatrix(7);
     
     @SuppressWarnings("unchecked")
     @Test
-    public void graphTest() {
+    public void graphByAdjMatrixTest() {
         //添加顶点
         g.addVertex('A');
         g.addVertex('B');
@@ -49,7 +49,9 @@ public class GraphTest {
         System.out.println("=======广度优先搜索=======");
         System.out.println(g.bfs());
         System.out.println();
-        
+    
+        int numOfVertex = g.getNumOfVertex();
+        System.out.println(numOfVertex);
         int s = 1;
         int[] result = g.dijkstra(s);
         System.out.println("顶点s到图中所有顶点之间的最短距离为：");

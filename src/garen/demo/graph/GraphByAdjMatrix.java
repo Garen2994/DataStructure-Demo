@@ -3,62 +3,49 @@ package garen.demo.graph;
 import java.util.LinkedList;
 
 /**
- * @Title : 图类
+ * @Title : 邻接矩阵表示图
  * @Author : Garen Hou
  * @Email : garen2994@hotmail.com
  * @Date :  2020/1/4 14:24
  */
-public class Graph<E> {
-    public Vertex[] vertexList;  //顶点
-    public int[][] mGraph;  //用矩阵表示边
+public class GraphByAdjMatrix<E> implements myGraph<E> {
+    /**
+     * @Title : 图的顶点类
+     * @Author : Garen Hou
+     * @Email : garen2994@hotmail.com
+     * @Date :  2020/1/2 21:01
+     */
     
-    //用于图的遍历
+    public static class Vertex<E> {
+        
+        E value;    //顶点值
+        boolean isVisited;    //顶点是否被访问
+        
+        public Vertex(E value) {
+            this.value = value;
+            this.isVisited = false;
+        }
+    }
     
-    public LinkedList<Integer> stack;  //栈 (存要访问的节点的索引)
-    public LinkedList<Integer> queue;  //队列 （存索引）
+    public Vertex[] vertexList;  //存储顶点的一维数组
+    public int[][] edges;  //邻接矩阵-存储边的二维数组
     public int size;   //当前顶点数
     
     //用于最小生成树应用
     public int[] distance;  //记录到起点的距离
     public int[] path; //记录最短路径经过的顶点
-    public int[][] dist;    //dist[i][j]记录i到j的最短距离
-    public int[][] prev;    //prev[i][j]=k表示i到j的最短路径会经过顶点k
-//     int[] parent; //并查集
     
     /**
      * @param maxSize
      * @return
      * @description 构造方法
      */
-    public Graph(int maxSize) {
+    public GraphByAdjMatrix(int maxSize) {
         vertexList = new Vertex[maxSize];
-        mGraph = new int[maxSize][maxSize];
-        stack = new LinkedList<>();
-        queue = new LinkedList<>();
+        edges = new int[maxSize][maxSize];
         size = -1;
         distance = new int[maxSize];
         path = new int[maxSize];
-        dist = new int[maxSize][maxSize];
-        prev = new int[maxSize][maxSize];
-        init();
-    }
-    
-    /**
-     * @param
-     * @return void
-     * @description 初始化为没有边的图
-     */
-    public void init() {
-        for (int i = 0; i < mGraph.length; i++) {
-            for (int j = 0; j < mGraph.length; j++) {
-                if (i == j) {
-                    mGraph[i][j] = 0;
-                } else {
-                    mGraph[i][j] = Integer.MAX_VALUE;
-                }
-            }
-        }
-        
     }
     
     /**
@@ -66,11 +53,12 @@ public class Graph<E> {
      * @return boolean
      * @description 添加边
      */
+    @Override
     public boolean addVertex(E value) {
-        if (size == vertexList.length) {
+        if (size >= vertexList.length) {
             throw new ArrayIndexOutOfBoundsException("Full list");
         }
-        vertexList[++size] = new Vertex<E>(value);
+        vertexList[++size] = new Vertex<>(value);
         return true;
     }
     
@@ -81,13 +69,19 @@ public class Graph<E> {
      * @return boolean
      * @description 添加边
      */
+    @Override
     public boolean addEdge(int start, int end, int weight) {
-        if (start < 0 || start >= mGraph.length || end < 0 || end >= mGraph.length) {
+        if (start < 0 || start >= edges.length || end < 0 || end >= edges.length) {
             throw new IllegalArgumentException("Wrong vertex");
         }
-        mGraph[start][end] = weight;
-        mGraph[end][start] = weight;
+        edges[start][end] = weight;
+        edges[end][start] = weight;
         return true;
+    }
+    
+    @Override
+    public int getNumOfVertex() {
+        return size;
     }
     
     /**
@@ -95,7 +89,9 @@ public class Graph<E> {
      * @return String
      * @description 深度优先搜索
      */
+    @Override
     public String dfs() {
+        LinkedList<Integer> stack = new LinkedList<>();
         StringBuilder sb = new StringBuilder();
         sb.append(vertexList[0].value).append(" ");
         vertexList[0].isVisited = true;
@@ -122,7 +118,9 @@ public class Graph<E> {
      * @return String
      * @description 广度优先搜索
      */
+    @Override
     public String bfs() {
+        LinkedList<Integer> queue = new LinkedList<>();
         StringBuilder sb = new StringBuilder();
         sb.append(vertexList[0].value).append(" ");
         vertexList[0].isVisited = true;
@@ -147,9 +145,9 @@ public class Graph<E> {
      * @description 找到与某一顶点邻接但未被访问的顶点
      */
     public int getUnvisitedVertex(int v) {
-        for (int i = 0; i < mGraph.length; i++) {
+        for (int i = 0; i < edges.length; i++) {
             //v顶点与i顶点相邻（邻接矩阵值为1）且未被访问 isVisited==false
-            if (v != i && mGraph[v][i] < Integer.MAX_VALUE && !vertexList[i].isVisited) {
+            if (v != i && edges[v][i] < Integer.MAX_VALUE && !vertexList[i].isVisited) {
                 return i;
             }
         }
@@ -161,6 +159,7 @@ public class Graph<E> {
      * @return int[]
      * @description 寻找单源最短路径--Dijkstra算法
      */
+    @Override
     public int[] dijkstra(int s) {
         if (s < 0 || s > vertexList.length) {
             throw new ArrayIndexOutOfBoundsException("超出索引范围");
@@ -170,13 +169,13 @@ public class Graph<E> {
             distance[i] = Integer.MAX_VALUE;
             path[i] = -1;
             for (int j = i + 1; j < vertexList.length; j++) {
-                if (mGraph[i][j] == 0) {
-                    mGraph[i][j] = Integer.MAX_VALUE;
-                    mGraph[j][i] = Integer.MAX_VALUE;
+                if (edges[i][j] == 0) {
+                    edges[i][j] = Integer.MAX_VALUE;
+                    edges[j][i] = Integer.MAX_VALUE;
                 }
             }
         }
-        System.arraycopy(mGraph[s], 0, distance, 0, vertexList.length);
+        System.arraycopy(edges[s], 0, distance, 0, vertexList.length);
         vertexList[s].isVisited = true;
         
         //将源点s邻接点的路径存储
@@ -186,14 +185,14 @@ public class Graph<E> {
             for (int j = 0; j < vertexList.length; j++) {
                 if (!vertexList[j].isVisited && distance[j] < min) {
                     min = distance[j];
-                    k = j; //记录最短路径加入的顶点
+                    k = j;  //记录最短路径加入的顶点
                 }
             }
             vertexList[k].isVisited = true;
             for (int j = 0; j < vertexList.length; j++) {
                 if (!vertexList[j].isVisited) {
-                    if (mGraph[k][j] != Integer.MAX_VALUE && (min + mGraph[k][j]) < distance[j]) {
-                        distance[j] = min + mGraph[k][j];
+                    if (edges[k][j] != Integer.MAX_VALUE && (min + edges[k][j]) < distance[j]) {
+                        distance[j] = min + edges[k][j];
                         path[j] = k;
                     }
                 }
