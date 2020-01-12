@@ -43,7 +43,6 @@ public class GraphByAdjMatrix<E> implements myGraph<E> {
     public GraphByAdjMatrix(int maxSize) {
         vertexList = new Vertex[maxSize];
         edges = new int[maxSize][maxSize];
-        size = -1;
         distance = new int[maxSize];
         path = new int[maxSize];
     }
@@ -58,7 +57,7 @@ public class GraphByAdjMatrix<E> implements myGraph<E> {
         if (size >= vertexList.length) {
             throw new ArrayIndexOutOfBoundsException("Full list");
         }
-        vertexList[++size] = new Vertex<>(value);
+        vertexList[size++] = new Vertex<>(value);
         return true;
     }
     
@@ -84,7 +83,7 @@ public class GraphByAdjMatrix<E> implements myGraph<E> {
         return size;
     }
     
-    /**
+  /**
      * @param
      * @return String
      * @description 深度优先搜索
