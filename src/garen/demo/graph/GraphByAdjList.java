@@ -1,6 +1,7 @@
 package garen.demo.graph;
 
 import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -14,7 +15,7 @@ import java.util.Stack;
  */
 public class GraphByAdjList<E> implements myGraph<E> {
     /**
-     * @Title : 邻接表数组顶点类
+     * @Title : 顶点表结点
      * @Author : Garen Hou
      * @Date :  2020/1/10 20:14
      */
@@ -34,13 +35,13 @@ public class GraphByAdjList<E> implements myGraph<E> {
     }
     
     /**
-     * @Title : 单链表的顶点
+     * @Title : 边表结点
      * @Author : Garen Hou
      * @Date :  2020/1/10 19:57
      */
     @SuppressWarnings("unused")
     private static class ENode {
-        int vertex; //邻接顶点符号
+        int vertex; //邻接顶点索引
         int weight; //权重
         ENode nextVex;  //下一个邻接表节点
         
@@ -69,8 +70,7 @@ public class GraphByAdjList<E> implements myGraph<E> {
     public GraphByAdjList(int maxSize) {
         vertexList = new VNode[maxSize];
     }
-    
-    
+
     @Override
     public int getNumOfVertex() {
         return size;
@@ -100,20 +100,16 @@ public class GraphByAdjList<E> implements myGraph<E> {
         ENode v1 = new ENode(v, weight);
         
         //索引为s没有邻接头结点
-        if (vertexList[s].firstVertex == null) {
-            vertexList[s].firstVertex = v1;
-        } else {  //有邻接头结点
+        if (vertexList[s].firstVertex != null) {  //有邻接头结点
             v1.nextVex = vertexList[s].firstVertex; //头插法
-            vertexList[s].firstVertex = v1;
         }
-        
+        vertexList[s].firstVertex = v1;
+
         ENode v2 = new ENode(s, weight);
-        if (vertexList[v].firstVertex == null) {
-            vertexList[v].firstVertex = v2;
-        } else {
+        if (vertexList[v].firstVertex != null) {
             v2.nextVex = vertexList[v].firstVertex;
-            vertexList[v].firstVertex = v2;
         }
+        vertexList[v].firstVertex = v2;
         return true;
     }
     
@@ -123,16 +119,15 @@ public class GraphByAdjList<E> implements myGraph<E> {
      * @description 深度优先搜索
      */
     @Override
-    public String dfs() {
+    public String dfs(int v) {
         Stack<Integer> stack = new Stack<>();
         StringBuilder sb = new StringBuilder();
-        sb.append(vertexList[0].data).append(" ");
         //将第一个节点入栈
-        stack.push(0);
-        vertexList[0].isVisited = true;
+        stack.push(v);
+        vertexList[v].isVisited = true;
         ENode current;
         while (!stack.isEmpty()) {
-            int v = stack.pop();
+            v = stack.pop();
             sb.append(vertexList[v].data).append(" ");
             current = vertexList[v].firstVertex;
             while (current != null) {
@@ -143,6 +138,10 @@ public class GraphByAdjList<E> implements myGraph<E> {
                 current = current.nextVex;
             }
         }
+        //把所有顶点恢复为未访问
+        for (VNode<E> vNode : vertexList) {
+            vNode.isVisited = false;
+        }
         return sb.toString().trim();
     }
     
@@ -152,17 +151,17 @@ public class GraphByAdjList<E> implements myGraph<E> {
      * @description 广度优先搜索
      */
     @Override
-    public String bfs() {
-        if (vertexList.length == 0) {
-            throw new NullPointerException("顶点集为空");
+    public String bfs(int v) {
+        if (v < 0 ||v > vertexList.length){
+            throw new ArrayIndexOutOfBoundsException("超出索引范围");
         }
         StringBuilder sb = new StringBuilder();
-        LinkedList<Integer> queue = new LinkedList<>();
-        queue.add(0);
-        vertexList[0].isVisited = true;
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(v);
+        vertexList[v].isVisited = true;
         ENode current;
         while (!queue.isEmpty()) {
-            int v = queue.remove();
+            v = queue.remove();
             sb.append(vertexList[v].data).append(" ");
             current = vertexList[v].firstVertex;
             while (current != null) {
@@ -172,6 +171,10 @@ public class GraphByAdjList<E> implements myGraph<E> {
                 }
                 current = current.nextVex;
             }
+        }
+        //把所有顶点恢复为未访问
+        for (VNode<E> vNode : vertexList) {
+            vNode.isVisited = false;
         }
         return sb.toString().trim();
     }

@@ -1,6 +1,7 @@
 package garen.demo.graph;
 
 import java.util.LinkedList;
+import java.util.Stack;
 
 /**
  * @Title : 邻接矩阵表示图
@@ -15,26 +16,26 @@ public class GraphByAdjMatrix<E> implements myGraph<E> {
      * @Email : garen2994@hotmail.com
      * @Date :  2020/1/2 21:01
      */
-    
+
     public static class Vertex<E> {
-        
+
         E value;    //顶点值
         boolean isVisited;    //顶点是否被访问
-        
+
         public Vertex(E value) {
             this.value = value;
             this.isVisited = false;
         }
     }
-    
+
     public Vertex[] vertexList;  //存储顶点的一维数组
     public int[][] edges;  //邻接矩阵-存储边的二维数组
     public int size;   //当前顶点数
-    
+
     //用于最小生成树应用
     public int[] distance;  //记录到起点的距离
     public int[] path; //记录最短路径经过的顶点
-    
+
     /**
      * @param maxSize
      * @return
@@ -46,7 +47,7 @@ public class GraphByAdjMatrix<E> implements myGraph<E> {
         distance = new int[maxSize];
         path = new int[maxSize];
     }
-    
+
     /**
      * @param value
      * @return boolean
@@ -60,7 +61,7 @@ public class GraphByAdjMatrix<E> implements myGraph<E> {
         vertexList[size++] = new Vertex<>(value);
         return true;
     }
-    
+
     /**
      * @param start  弧尾
      * @param end    弧头
@@ -77,82 +78,77 @@ public class GraphByAdjMatrix<E> implements myGraph<E> {
         edges[end][start] = weight;
         return true;
     }
-    
+
     @Override
     public int getNumOfVertex() {
         return size;
     }
-    
-  /**
+
+    /**
      * @param
      * @return String
      * @description 深度优先搜索
      */
     @Override
-    public String dfs() {
-        LinkedList<Integer> stack = new LinkedList<>();
+    public String dfs(int v) {
+        Stack<Integer> stack = new Stack<>();
         StringBuilder sb = new StringBuilder();
-        sb.append(vertexList[0].value).append(" ");
-        vertexList[0].isVisited = true;
+        vertexList[v].isVisited = true;
         //将第一个节点入栈
-        stack.push(0);
+        stack.push(v);
         while (!stack.isEmpty()) {
-            int v = getUnvisitedVertex(stack.peek());
-            if (v == -1) {
-                stack.pop();
-            } else {
-                vertexList[v].isVisited = true;
-                sb.append(vertexList[v].value).append(" ");
-                stack.push(v);
+            v = stack.pop();
+            sb.append(vertexList[v].value).append(" ");
+            for (int i = vertexList.length - 1; i >= 0; i--) {
+                if (edges[v][i] != 0 && edges[v][i] != Integer.MAX_VALUE) {
+                    if (!vertexList[i].isVisited) {
+                        stack.push(i);
+                        vertexList[i].isVisited = true;
+                    }
+                }
             }
         }
+        //把所有顶点恢复为未访问
         for (Vertex vertex : vertexList) {
             vertex.isVisited = false;
         }
         return sb.toString().trim();
     }
-    
+
     /**
      * @param
      * @return String
      * @description 广度优先搜索
      */
     @Override
-    public String bfs() {
+    public String bfs(int v) {
+        if(v < 0 || v >= vertexList.length){
+            throw new ArrayIndexOutOfBoundsException("超出索引范围");
+        }
         LinkedList<Integer> queue = new LinkedList<>();
         StringBuilder sb = new StringBuilder();
-        sb.append(vertexList[0].value).append(" ");
-        vertexList[0].isVisited = true;
+        vertexList[v].isVisited = true;
         //将第一个顶点入队
-        queue.add(0);
+        queue.add(v);
         while (!queue.isEmpty()) {
-            int v = getUnvisitedVertex(queue.peek());
-            if (v != -1) {
-                sb.append(vertexList[v].value).append(" ");
-                vertexList[v].isVisited = true;
-                queue.add(v);
-            } else {
-                queue.remove();
+            v = queue.remove();
+            sb.append(vertexList[v].value).append(" ");
+            for (int i = vertexList.length -1 ; i >= 0 ; i--) {
+                if(edges[v][i]!=0 && edges[v][i] != Integer.MAX_VALUE){
+                    if(!vertexList[i].isVisited){
+                         queue.add(i);
+                         vertexList[i].isVisited = true;
+                    }
+                }
             }
+        }
+        //把所有顶点恢复为未访问
+        for (Vertex vertex : vertexList) {
+            vertex.isVisited = false;
         }
         return sb.toString().trim();
     }
-    
-    /**
-     * @param v 某一顶点
-     * @return int
-     * @description 找到与某一顶点邻接但未被访问的顶点
-     */
-    public int getUnvisitedVertex(int v) {
-        for (int i = 0; i < edges.length; i++) {
-            //v顶点与i顶点相邻（邻接矩阵值为1）且未被访问 isVisited==false
-            if (v != i && edges[v][i] < Integer.MAX_VALUE && !vertexList[i].isVisited) {
-                return i;
-            }
-        }
-        return -1;
-    }
-    
+
     /**
      * @param s 源点
      * @return int[]
@@ -176,7 +172,7 @@ public class GraphByAdjMatrix<E> implements myGraph<E> {
         }
         System.arraycopy(edges[s], 0, distance, 0, vertexList.length);
         vertexList[s].isVisited = true;
-        
+
         //将源点s邻接点的路径存储
         for (int i = 0; i < vertexList.length; i++) {
             int min = Integer.MAX_VALUE;
@@ -195,13 +191,13 @@ public class GraphByAdjMatrix<E> implements myGraph<E> {
                         path[j] = k;
                     }
                 }
-                
+
             }
         }
         printDijkstra(s);
         return distance;
     }
-    
+
     public void printDijkstra(int s) {
         LinkedList<Integer> stack = new LinkedList<>();
         System.out.println("dijkstra(" + vertexList[s].value + ")");

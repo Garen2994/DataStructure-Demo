@@ -10,7 +10,7 @@ public interface myGraph<E> {
     int getNumOfVertex();   //获取顶点个数
     boolean addVertex(E value); //添加边
     boolean addEdge(int s, int v, int weight);  //添加顶点
-    String dfs();   //深度优先搜索
-    String bfs();   //广度优先搜索
+    String dfs(int v);   //深度优先搜索
+    String bfs(int v);   //广度优先搜索
     public int[] dijkstra(int s);
 }
