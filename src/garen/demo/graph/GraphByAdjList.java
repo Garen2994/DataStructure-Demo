@@ -2,7 +2,6 @@ package garen.demo.graph;
 
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Stack;
 
 /**
  * @Title : 邻接表表示图:顺序存储与链式存储相结合
@@ -24,16 +23,16 @@ public class GraphByAdjList<E> implements myGraph<E> {
         E data; //顶点信息
         ENode firstVertex;  //对应的单链表的头指针
         boolean isVisited;
-        
+
         public VNode() {
         }
-        
+
         public VNode(E data) {
             this.data = data;
             this.isVisited = false;
         }
     }
-    
+
     /**
      * @Title : 边表结点
      * @Author : Garen Hou
@@ -44,7 +43,7 @@ public class GraphByAdjList<E> implements myGraph<E> {
         int vertex; //邻接顶点索引
         int weight; //权重
         ENode nextVex;  //下一个邻接表节点
-        
+
         /**
          * @param vertex
          * @param weight
@@ -56,11 +55,11 @@ public class GraphByAdjList<E> implements myGraph<E> {
             this.weight = weight;
         }
     }
-    
+
     private VNode<E>[] vertexList;  //顶点数组
     private int size;   //顶点数
     private boolean isVisited;  //是否被访问过
-    
+
     /**
      * @param maxSize
      * @return
@@ -75,7 +74,7 @@ public class GraphByAdjList<E> implements myGraph<E> {
     public int getNumOfVertex() {
         return size;
     }
-    
+
     @Override
     public boolean addVertex(E value) {
         if (size >= vertexList.length) {
@@ -84,7 +83,7 @@ public class GraphByAdjList<E> implements myGraph<E> {
         vertexList[size++] = new VNode<>(value);
         return true;
     }
-    
+
     /**
      * @param s
      * @param v
@@ -98,7 +97,7 @@ public class GraphByAdjList<E> implements myGraph<E> {
             throw new ArrayIndexOutOfBoundsException("超出集合索引范围");
         }
         ENode v1 = new ENode(v, weight);
-        
+
         //索引为s没有邻接头结点
         if (vertexList[s].firstVertex != null) {  //有邻接头结点
             v1.nextVex = vertexList[s].firstVertex; //头插法
@@ -112,7 +111,7 @@ public class GraphByAdjList<E> implements myGraph<E> {
         vertexList[v].firstVertex = v2;
         return true;
     }
-    
+
     /**
      * @param
      * @return String
@@ -120,9 +119,11 @@ public class GraphByAdjList<E> implements myGraph<E> {
      */
     @Override
     public String dfs(int v) {
-        Stack<Integer> stack = new Stack<>();
+        if (v < 0 || v > vertexList.length - 1) {
+            throw new ArrayIndexOutOfBoundsException("超出索引范围");
+        }
         StringBuilder sb = new StringBuilder();
-        //将第一个节点入栈
+        LinkedList<Integer> stack = new LinkedList<>();
         stack.push(v);
         vertexList[v].isVisited = true;
         ENode current;
@@ -138,13 +139,12 @@ public class GraphByAdjList<E> implements myGraph<E> {
                 current = current.nextVex;
             }
         }
-        //把所有顶点恢复为未访问
         for (VNode<E> vNode : vertexList) {
             vNode.isVisited = false;
         }
         return sb.toString().trim();
     }
-    
+
     /**
      * @param
      * @return String
@@ -152,7 +152,7 @@ public class GraphByAdjList<E> implements myGraph<E> {
      */
     @Override
     public String bfs(int v) {
-        if (v < 0 ||v > vertexList.length){
+        if (v < 0 || v > vertexList.length) {
             throw new ArrayIndexOutOfBoundsException("超出索引范围");
         }
         StringBuilder sb = new StringBuilder();
@@ -178,9 +178,10 @@ public class GraphByAdjList<E> implements myGraph<E> {
         }
         return sb.toString().trim();
     }
-    
+
     @Override
     public int[] dijkstra(int s) {
+        //TODO 用邻接表+最小堆实现
         return new int[0];
     }
 }

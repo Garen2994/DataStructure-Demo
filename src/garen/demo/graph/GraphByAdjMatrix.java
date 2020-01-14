@@ -150,9 +150,9 @@ public class GraphByAdjMatrix<E> implements myGraph<E> {
     }
 
     /**
+     * @description 寻找单源最短路径--Dijkstra算法
      * @param s 源点
      * @return int[]
-     * @description 寻找单源最短路径--Dijkstra算法
      */
     @Override
     public int[] dijkstra(int s) {
@@ -186,7 +186,7 @@ public class GraphByAdjMatrix<E> implements myGraph<E> {
             vertexList[k].isVisited = true;
             for (int j = 0; j < vertexList.length; j++) {
                 if (!vertexList[j].isVisited) {
-                    if (edges[k][j] != Integer.MAX_VALUE && (min + edges[k][j]) < distance[j]) {
+                    if (edges[k][j] != Integer.MAX_VALUE && (min + edges[k][j]) < distance[j]) { //松弛操作
                         distance[j] = min + edges[k][j];
                         path[j] = k;
                     }
@@ -197,7 +197,11 @@ public class GraphByAdjMatrix<E> implements myGraph<E> {
         printDijkstra(s);
         return distance;
     }
-
+    /**
+     * @description //打印Dijkstra路径
+     * @param s
+     * @return void
+     */
     public void printDijkstra(int s) {
         LinkedList<Integer> stack = new LinkedList<>();
         System.out.println("dijkstra(" + vertexList[s].value + ")");
