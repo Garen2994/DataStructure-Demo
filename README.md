@@ -70,7 +70,7 @@ tree,map and so on. Updating continually...
 
 ---
 
-- [x] **图的相关操作及算法** :ghost:
+- [x] **图的相关操作及算法**:ghost:
 	
 	 （使用图的两种存储结构：邻接矩阵和邻接表，来实现图的相关操作）
 	
