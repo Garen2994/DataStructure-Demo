@@ -61,6 +61,7 @@ public class GraphTest {
     }
     
     @Test
+    @SuppressWarnings("unchecked")
     public void graphByAdjListTest() {
         GraphByAdjList g = new GraphByAdjList(7);
         g.addVertex('A');
