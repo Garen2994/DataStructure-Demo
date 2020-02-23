@@ -25,6 +25,10 @@ public class MinHeapTest {
         System.out.println("删除的元素：" + heap.remove());
         System.out.print("堆对应的广义表为：");
         heap.printMinHeap(0);
+        System.out.println();
+        System.out.println("================堆排序==============");
+        System.out.print("生成的有序序列：");
+        heap.heapSort();
     }
 
 }
