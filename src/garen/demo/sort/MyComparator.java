@@ -47,7 +47,6 @@ public class MyComparator {
     public void comparator(int[] arr) {
         Arrays.sort(arr);
     }
-    
     /**
      * @param arr1
      * @param arr2
