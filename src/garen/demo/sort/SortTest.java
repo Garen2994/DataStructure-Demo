@@ -68,4 +68,26 @@ public class SortTest {
         }
         System.out.println(succeed ? "Nice!" : "Something Wrong!");
     }
+    @Test
+    public void MergeSortTest(){
+        MergeSort ms = new MergeSort();
+        int testTime = 1;
+        boolean succeed = true;
+        MyComparator myComparator = new MyComparator();
+        for (int i = 0; i < testTime; i++) {
+//            int[] arr1 = myComparator.generateRandomArray(100, 100);
+            int[] arr1 = {-43 ,13 ,-31 ,19 ,-4 ,58 ,13 ,-11 ,68 ,63 ,40 ,-9 ,-13, 3 ,-8 ,28 ,32 ,56, 3 ,-25 ,-23 ,26 ,53 ,-17 ,43 ,-56 ,-37 ,-63 ,-44,-44};
+            myComparator.printArray(arr1);
+            int[] arr2 = myComparator.copyArray(arr1);
+            ms.mergeSort(arr1);
+            myComparator.comparator(arr2);
+            myComparator.printArray(arr1);
+            myComparator.printArray(arr2);
+            if (!myComparator.isEqual(arr1, arr2)) {
+                succeed = false;
+                break;
+            }
+        }
+        System.out.println(succeed ? "Nice!" : "Something Wrong!");
+    }
 }
