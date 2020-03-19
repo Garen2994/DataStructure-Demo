@@ -1,6 +1,7 @@
 package garen.demo.sort;
 
 import org.junit.jupiter.api.Test;
+
 /**
  * @Title : 排序测试类
  * @Author : Garen Hou
@@ -9,7 +10,7 @@ import org.junit.jupiter.api.Test;
  */
 public class SortTest {
     @Test
-    public void insertionSortTest(){
+    public void insertionSortTest() {
         InsertSort is = new InsertSort();
         int testTime = 500000;
         boolean succeed = true;
@@ -32,8 +33,9 @@ public class SortTest {
             System.out.print(arrWithSentinel[i] + " ");
         }
     }
+    
     @Test
-    public void BubbleSortTest(){
+    public void BubbleSortTest() {
         BubbleSort bs = new BubbleSort();
         int testTime = 50000;
         boolean succeed = true;
@@ -50,8 +52,9 @@ public class SortTest {
         }
         System.out.println(succeed ? "Nice!" : "Something Wrong!");
     }
+    
     @Test
-    public void QuickSortTest(){
+    public void QuickSortTest() {
         QuickSort qs = new QuickSort();
         int testTime = 1;
         boolean succeed = true;
@@ -59,7 +62,7 @@ public class SortTest {
         for (int i = 0; i < testTime; i++) {
             int[] arr1 = myComparator.generateRandomArray(10, 100);
             int[] arr2 = myComparator.copyArray(arr1);
-            qs.quickSort(arr1, 0, arr1.length-1);
+            qs.quickSort(arr1, 0, arr1.length - 1);
             myComparator.comparator(arr2);
             if (!myComparator.isEqual(arr1, arr2)) {
                 succeed = false;
@@ -68,21 +71,18 @@ public class SortTest {
         }
         System.out.println(succeed ? "Nice!" : "Something Wrong!");
     }
+    
     @Test
-    public void MergeSortTest(){
+    public void MergeSortTest() {
         MergeSort ms = new MergeSort();
-        int testTime = 1;
+        int testTime = 50000;
         boolean succeed = true;
         MyComparator myComparator = new MyComparator();
         for (int i = 0; i < testTime; i++) {
-//            int[] arr1 = myComparator.generateRandomArray(100, 100);
-            int[] arr1 = {-43 ,13 ,-31 ,19 ,-4 ,58 ,13 ,-11 ,68 ,63 ,40 ,-9 ,-13, 3 ,-8 ,28 ,32 ,56, 3 ,-25 ,-23 ,26 ,53 ,-17 ,43 ,-56 ,-37 ,-63 ,-44,-44};
-            myComparator.printArray(arr1);
+            int[] arr1 = myComparator.generateRandomArray(100, 100);
             int[] arr2 = myComparator.copyArray(arr1);
             ms.mergeSort(arr1);
             myComparator.comparator(arr2);
-            myComparator.printArray(arr1);
-            myComparator.printArray(arr2);
             if (!myComparator.isEqual(arr1, arr2)) {
                 succeed = false;
                 break;

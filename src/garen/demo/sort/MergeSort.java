@@ -37,7 +37,7 @@ public class MergeSort {
         while (p <= mid) {
             temp[i++] = arr[p++];
         }
-        while (q <= left) {
+        while (q <= right) {
             temp[i++] = arr[q++];
         }
         for (i = 0; i < temp.length; i++) {
