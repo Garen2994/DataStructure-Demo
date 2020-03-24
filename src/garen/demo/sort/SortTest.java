@@ -45,9 +45,11 @@ public class SortTest {
             int[] arr2 = myComparator.copyArray(arr1);
             bs.bubbleSort(arr1);
             myComparator.comparator(arr2);
+
             if (!myComparator.isEqual(arr1, arr2)) {
                 succeed = false;
                 break;
+                
             }
         }
         System.out.println(succeed ? "Nice!" : "Something Wrong!");
@@ -56,16 +58,18 @@ public class SortTest {
     @Test
     public void QuickSortTest() {
         QuickSort qs = new QuickSort();
-        int testTime = 1;
+        int testTime = 50000;
         boolean succeed = true;
         MyComparator myComparator = new MyComparator();
         for (int i = 0; i < testTime; i++) {
-            int[] arr1 = myComparator.generateRandomArray(10, 100);
+            int[] arr1 = myComparator.generateRandomArray(100, 100);
             int[] arr2 = myComparator.copyArray(arr1);
-            qs.quickSort(arr1, 0, arr1.length - 1);
+            qs.quickSort(arr1);
             myComparator.comparator(arr2);
             if (!myComparator.isEqual(arr1, arr2)) {
                 succeed = false;
+                myComparator.printArray(arr1);
+                myComparator.printArray(arr2);
                 break;
             }
         }
