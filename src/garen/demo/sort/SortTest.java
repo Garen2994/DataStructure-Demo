@@ -58,7 +58,7 @@ public class SortTest {
     @Test
     public void QuickSortTest() {
         QuickSort qs = new QuickSort();
-        int testTime = 50000;
+        int testTime = 100000;
         boolean succeed = true;
         MyComparator myComparator = new MyComparator();
         for (int i = 0; i < testTime; i++) {
