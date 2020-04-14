@@ -203,9 +203,9 @@ class LinkedList<E> {
 
         while (cur != null) { // 对原链表中的每个结点进行反转
             Node<E> next = cur.next;  //记录当前结点的下一个结点
-            cur.next = pre; //更新当前结点的next
-            pre = cur; //pre后移
-            cur = next; //
+            cur.next = pre;//更新当前结点的next
+            pre = cur;//pre后移
+            cur = next;//
         }
         head.next = pre;
     }
